@@ -1,14 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-      <script src="https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat:regular"
+    />
+    <style>
+      * {
+        font-family: "Montserrat", sans-serif;
+      }
+    </style>
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/states.css" />
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.22.1/full/pyodide.js"></script>
   </head>
   <body>
     <script type="text/javascript">
-      async function main(){
+      async function main() {
         let pyodide = await loadPyodide();
         await pyodide.loadPackage("micropip");
-        await pyodide.loadPackage("numpy")
+        await pyodide.loadPackage("numpy");
         const micropip = pyodide.pyimport("micropip");
         await micropip.install("numba_pokemon_prngs-0.1.0-py3-none-any.whl");
         await micropip.install("js_finder-0.1.0-py3-none-any.whl");
