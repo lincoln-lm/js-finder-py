@@ -198,14 +198,11 @@ def get_seed_list(
     if datum is None:
         return "<td>Invalid Target Seed</td>"
     idx = datum[1]
-    seed_list = tuple(seed_data.items())[max(idx-leeway, 0):idx+leeway+1]
-    rows = ""
-    for initial_seed, (seed_frame, _idx) in seed_list:
-        initial_seed = int(initial_seed)
-        rows += (
-            "<tr>"
-            f"<td>{initial_seed:04X}</td>"
-            "</tr>"
-        )
-    return rows
+    seed_list = tuple(seed_data.keys())[max(idx-leeway, 0):idx+leeway+1]
 
+    return "".join(
+        "<tr>"
+        f"<td>{int(initial_seed):04X}</td>"
+        "</tr>"
+        for initial_seed in seed_list
+    )
