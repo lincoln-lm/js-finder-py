@@ -182,7 +182,7 @@ def check_iter(
                 return rows + "<tr><td>Results Truncated</td></tr>"
 
     return rows
-## function to create a list of seeds using user-provided parameters.
+
 def get_seed_list(
     base_seed: int,
     leeway: int,
@@ -190,8 +190,9 @@ def get_seed_list(
     sound: str,
     l: str,
     button: str,
-    select: str, 
+    select: str,
 ):
+    """Fetch the list of seeds within the provided leeway of the target seed"""
     seed_data = FRLG_DATA[game][sound][l][button][select]
     datum = seed_data.get(str(base_seed), None)
     if datum is None:
