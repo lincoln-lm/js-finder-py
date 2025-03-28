@@ -206,3 +206,17 @@ def get_seed_list(
         "</tr>"
         for initial_seed in seed_list
     )
+
+def fetch_default_seed(
+    game: str,
+    sound: str,
+    l: str,
+    button: str,
+    select: str,   
+):
+    try:
+        seed_data = FRLG_DATA[game][sound][l][button][select]
+        default_seed = tuple(seed_data.keys())[50]
+        return f"{int(default_seed):04X}"
+    except Exception:
+        return "ERROR"
