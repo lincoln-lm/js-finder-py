@@ -100,6 +100,7 @@ def check_frlg(
     select: str,
     advance_min: int,
     advance_max: int,
+    system_ms: int,
 ):
     seed_data = FRLG_DATA[game][sound][l][button][select]
     datum = seed_data.get(str(base_seed), None)
@@ -115,6 +116,7 @@ def check_frlg(
         tuple(seed_data.items())[max(idx-leeway, 0):idx+leeway+1],
         advance_min,
         advance_max,
+        system_ms,
     )
 
 
@@ -127,6 +129,7 @@ def check_iter(
     seed_data: Iterable[tuple[int, tuple[int, int]]],
     advance_min: int,
     advance_max: int,
+    system_ms: int,
 ) -> str:
     """Search for RNG states producing the filtered values in the provided seed and advance ranges"""
     rows = ""
@@ -167,7 +170,7 @@ def check_iter(
 
             rows += (
                 "<tr>"
-                f"<td>{initial_seed:04X} | {frame_to_ms(seed_frame)}ms</td>"
+                f"<td>{initial_seed:04X} | {frame_to_ms(seed_frame)+system_ms}ms</td>"
                 f"<td>{advance}</td>"
                 f"<td>{pid:08X}</td>"
                 f"<td>{"Square" if shiny_value == 0 else "Star" if shiny_value < 8 else "No"}</td>"
