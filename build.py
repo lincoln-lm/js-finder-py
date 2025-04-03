@@ -13,7 +13,7 @@ BASE_SEED = 0
 FR_ENG_SHEET = "https://docs.google.com/spreadsheets/d/1Mf3F4kTvNEYyDGWKVmMSiar3Fwh1PLzWVXUvGx9YxfA/gviz/tq?tqx=out:csv&sheet=Fire%20Red%20Raw%20Seed%20Data"
 LG_ENG_SHEET = "https://docs.google.com/spreadsheets/d/12TUcXGbLY_bBDfVsgWZKvqrX13U6XAATQZrYnzBKP6Y/gviz/tq?tqx=out:csv&sheet=Leaf%20Green%20Seeds"
 
-FR_JPN_1_0_SHEET = "https://docs.google.com/spreadsheets/d/1GMRFM1obLDcYbR6GR6KrE8UZotA7djUTw8PxqVFnCVY/gviz/tq?tqx=out:csv&sheet=JPN%20Fire%20Red%201.0%20Seeds"
+FR_JPN_1_0_SHEET = "https://docs.google.com/spreadsheets/d/1xSYuAuGSZQ4JbgQN262cfo80_A2CYko74bYGzl5ABTA/gviz/tq?tqx=out:csv&sheet=JPN%20Fire%20Red%201.0%20Seeds"
 FR_JPN_1_1_SHEET = "https://docs.google.com/spreadsheets/d/1aQeWaZSi1ycSytrNEOwxJNoEg-K4eItYagU_dh9VIeU/gviz/tq?tqx=out:csv&sheet=JPN%20Fire%20Red%201.0%20Seeds"
 
 LG_JPN_SHEET = "https://docs.google.com/spreadsheets/d/1LSRVD0_zK6vyd6ettUDfaCFJbm00g451d8s96dqAbA4/gviz/tq?tqx=out:csv&sheet=JPN%20Leaf%20Green%20Seeds"
@@ -79,6 +79,7 @@ def pull_frlg_seeds():
         if row[0]:
             program_frame_str = row[0]
             program_frame = int(program_frame_str)
+            frame = program_frame / 2 - 15
 
             def add_seed(col, sound, l, button):
                 seed_str = row[col]
@@ -87,10 +88,10 @@ def pull_frlg_seeds():
                     if seed < 0x10000:
                         eng_fr = frlg_seeds["fr"][sound][l][button]
                         for held in eng_fr.keys():
-                            eng_fr[held][(seed + ENG_OFFSETS[l][held]) & 0xFFFF] = program_frame / 2
+                            eng_fr[held][(seed + ENG_OFFSETS[l][held]) & 0xFFFF] = frame
                         eu_fr = frlg_seeds["fr_eu"][sound][l][button]
                         for held in eu_fr.keys():
-                            eu_fr[held][(seed + EU_OFFSETS[l][held]) & 0xFFFF] = program_frame / 2
+                            eu_fr[held][(seed + EU_OFFSETS[l][held]) & 0xFFFF] = frame
 
             add_seed(3, "stereo", "la", "a")
             add_seed(7, "stereo", "help", "a")
@@ -140,10 +141,10 @@ def pull_frlg_seeds():
     ).text
     sheet_csv = csv.reader(sheet_txt.split("\n"))
     for i, row in enumerate(sheet_csv):
-        if i == 0:
+        if i < 3:
             continue
         if row[0]:
-            frame = int(row[0])
+            frame = int(row[0]) - 45 # Slight adjustment to frame based on testing for sheet standardization
 
             def add_seed(col, sound, l, button):
                 if row[col]:
@@ -168,7 +169,7 @@ def pull_frlg_seeds():
         if i < 3:
             continue
         if row[0]:
-            frame = int(row[0])
+            frame = int(row[0]) - 45 # Slight adjustment to frame based on testing for sheet standardization
 
             def add_seed(col, sound, l, button):
                 if row[col]:
@@ -193,7 +194,7 @@ def pull_frlg_seeds():
         if i < 3:
             continue
         if row[0]:
-            frame = int(row[0])
+            frame = int(row[0]) - 41 # Slight adjustment to frame based on testing for sheet standardization
 
             def add_seed(col, sound, l, button):
                 if row[col]:
