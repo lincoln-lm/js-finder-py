@@ -144,7 +144,7 @@ def pull_frlg_seeds():
         if i < 3:
             continue
         if row[0]:
-            frame = int(row[0]) - 45 # Slight adjustment to frame based on testing for sheet standardization
+            frame = int(row[0]) - 40
 
             def add_seed(col, sound, l, button):
                 if row[col]:
@@ -169,7 +169,7 @@ def pull_frlg_seeds():
         if i < 3:
             continue
         if row[0]:
-            frame = int(row[0]) - 45 # Slight adjustment to frame based on testing for sheet standardization
+            frame = int(row[0]) - 40
 
             def add_seed(col, sound, l, button):
                 if row[col]:
@@ -194,7 +194,7 @@ def pull_frlg_seeds():
         if i < 3:
             continue
         if row[0]:
-            frame = int(row[0]) - 41 # Slight adjustment to frame based on testing for sheet standardization
+            frame = int(row[0]) - 40
 
             def add_seed(col, sound, l, button):
                 if row[col]:
