@@ -293,9 +293,11 @@ def check_iter_wild(
             slot = go.next_u16() % 100
             enc_slot = calc_encslot(wild, slot)
             # level is unused, but since this call is made and could eventually be calculated, leaving it here instead of just doing rng.next
-            level = go.next_u16()
+            _level = go.next_u16()
             # RNG call for wild encounter nature matching
             wild_nature = go.next_u16() % 25
+            if nature_filter is not None and wild_nature != nature_filter:
+                continue
             # loop PID generation sequence until matching nature is found.
             while True:
                 low = go.next_u16()
@@ -304,8 +306,6 @@ def check_iter_wild(
                 nature = pid % 25
                 if nature == wild_nature:
                     break
-            if nature_filter is not None and nature != nature_filter:
-                continue
             if method == 2:
                 go.next()
             shiny_value = tsv ^ low ^ high
