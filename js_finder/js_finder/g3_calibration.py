@@ -153,7 +153,7 @@ def check_iter(
             if shiny_value >= shiny_filter:
                 continue
             nature = pid % 25
-            if nature_filter != 99 and nature != nature_filter: #Allows for searching all natures if nature_filter is set to Any (99)
+            if nature_filter is not None and nature != nature_filter:
                 continue
             ability = pid & 1
             iv0 = go.next_u16()
@@ -173,9 +173,9 @@ def check_iter(
 
             rows += (
                 "<tr>"
-                f"<td>{initial_seed:04X} | {frame_to_ms(seed_frame)+system_ms}ms</td>"
+                f"<td>{initial_seed:04X} | {frame_to_ms(seed_frame) + system_ms}ms</td>"
                 f"<td>{advance}</td>"
-                f"<td></td>" # Blank Table Data for Missing Enc_Slot
+                f"<td></td>"
                 f"<td>{pid:08X}</td>"
                 f"<td>{"Square" if shiny_value == 0 else "Star" if shiny_value < 8 else "No"}</td>"
                 f"<td>{NATURES_EN[nature]}</td>"
@@ -278,7 +278,6 @@ def check_iter_wild(
     advance_min: int,
     advance_max: int,
     system_ms: int,
-    # new wild str for Grass/Surf/Fishing
     wild: str,
 ) -> str:
     """Search for RNG states producing the filtered values in the provided seed and advance ranges"""
@@ -305,7 +304,7 @@ def check_iter_wild(
                 nature = pid % 25
                 if nature == wild_nature:
                     break
-            if nature_filter != 99 and nature != nature_filter: #Allows for searching all natures if nature_filter is set to Any (99)
+            if nature_filter is not None and nature != nature_filter:
                 continue
             if method == 2:
                 go.next()
@@ -351,20 +350,20 @@ def calc_encslot(
     wild: str,
     rand: int,
 ) :
-            if wild == "Grass":
-                table = [20, 40, 50, 60, 70, 80, 85, 90, 94, 98, 99, 100] # grass Table in PokeFinder source EncounterSlot.cpp
-            elif wild == "Surf":
-                table = [60, 90, 95, 99, 100] # water4 Table in PokeFinder source EncounterSlot.cpp
-            elif wild == "Old Rod":
-                table = [70, 100] # water0 Table in PokeFinder source EncounterSlot.cpp
-            elif wild == "Good Rod":
-                table = [60, 80, 100] # water1 Table in PokeFinder source EncounterSlot.cpp
-            elif wild == "Super Rod":
-                table = [40, 80, 95, 99, 100] # water2 Table in PokeFinder source EncounterSlot.cpp
-            else:
-                raise ValueError(f"Unknown wild type: {wild}")
-            for index, value in enumerate(table):
-                if rand < value:
-                    return index
-                if rand == 100:
-                    return len(table) - 1
+    if wild == "Grass":
+        table = [20, 40, 50, 60, 70, 80, 85, 90, 94, 98, 99, 100] # grass Table in PokeFinder source EncounterSlot.cpp
+    elif wild == "Surf":
+        table = [60, 90, 95, 99, 100] # water4 Table in PokeFinder source EncounterSlot.cpp
+    elif wild == "Old Rod":
+        table = [70, 100] # water0 Table in PokeFinder source EncounterSlot.cpp
+    elif wild == "Good Rod":
+        table = [60, 80, 100] # water1 Table in PokeFinder source EncounterSlot.cpp
+    elif wild == "Super Rod":
+        table = [40, 80, 95, 99, 100] # water2 Table in PokeFinder source EncounterSlot.cpp
+    else:
+        raise ValueError(f"Unknown wild type: {wild}")
+    for index, value in enumerate(table):
+        if rand < value:
+            return index
+        if rand == 100:
+            return len(table) - 1
