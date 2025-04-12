@@ -219,8 +219,9 @@ def fetch_default_seed(
     sound: str,
     l: str,
     button: str,
-    select: str,   
+    select: str,
 ):
+    """Fetch the 51st seed from the provided settings for a default value"""
     try:
         seed_data = FRLG_DATA[game][sound][l][button][select]
         default_seed = tuple(seed_data.keys())[50]
@@ -346,24 +347,23 @@ def check_iter_wild(
 
     return rows
 
+ENCOUNTER_SLOT_TABLES = {
+    "Grass": (20, 40, 50, 60, 70, 80, 85, 90, 94, 98, 99, 100),
+    "Surf": (60, 90, 95, 99, 100),
+    "Old Rod": (70, 100),
+    "Good Rod": (60, 80, 100),
+    "Super Rod": (40, 80, 95, 99, 100),
+}
+
 def calc_encslot(
     wild: str,
     rand: int,
-) :
-    if wild == "Grass":
-        table = [20, 40, 50, 60, 70, 80, 85, 90, 94, 98, 99, 100] # grass Table in PokeFinder source EncounterSlot.cpp
-    elif wild == "Surf":
-        table = [60, 90, 95, 99, 100] # water4 Table in PokeFinder source EncounterSlot.cpp
-    elif wild == "Old Rod":
-        table = [70, 100] # water0 Table in PokeFinder source EncounterSlot.cpp
-    elif wild == "Good Rod":
-        table = [60, 80, 100] # water1 Table in PokeFinder source EncounterSlot.cpp
-    elif wild == "Super Rod":
-        table = [40, 80, 95, 99, 100] # water2 Table in PokeFinder source EncounterSlot.cpp
-    else:
-        raise ValueError(f"Unknown wild type: {wild}")
+):
+    """Calculate the encounter slot based on the wild encounter type and slot rand"""
+    table = ENCOUNTER_SLOT_TABLES.get(wild, None)
+    if table is None:
+        raise ValueError(f"Invalid wild encounter type: {wild}")
     for index, value in enumerate(table):
         if rand < value:
             return index
-        if rand == 100:
-            return len(table) - 1
+    return len(table) - 1
