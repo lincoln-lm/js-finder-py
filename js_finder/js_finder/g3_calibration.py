@@ -225,8 +225,8 @@ def fetch_default_seed(
         seed_data = FRLG_DATA[game][sound][l][button][select]
         default_seed = tuple(seed_data.keys())[50]
         return f"{int(default_seed):04X}"
-    except Exception:
-        return "ERROR"
+    except IndexError:
+        return ""
 
 def check_frlg_wild(
     method: int,

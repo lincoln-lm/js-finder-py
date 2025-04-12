@@ -285,7 +285,7 @@
                 "${held_select.value}"
             )`
           ).then((results) => {
-            if (results === "ERROR") {
+            if (results === "") {
               target_seed_input.value = "No seed found.";
             } else {
               target_seed_input.value = results.toString(16).toUpperCase();
