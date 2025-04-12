@@ -1,6 +1,5 @@
 """G3 Searcher module for pyodide to access"""
 
-from .util import frame_to_ms
 import sys
 from typing import Iterable
 import numpy as np
@@ -8,6 +7,7 @@ from numba_pokemon_prngs.lcrng import PokeRNGMod
 from numba_pokemon_prngs.data import NATURES_EN, SPECIES_EN
 from numba_pokemon_prngs.data.personal import PERSONAL_INFO_FR
 from .ten_lines import FRLG_DATA
+from .util import frame_to_ms
 
 
 def main():
