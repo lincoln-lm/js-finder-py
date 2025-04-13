@@ -18,13 +18,18 @@ def main():
 
 
 def fetch_species_options():
-    return "".join(f'<option value="{i}">{species}</option>' for i,species in enumerate(SPECIES_EN[1:387], 1))
+    return "".join(
+        f'<option value="{i}">{species}</option>'
+        for i, species in enumerate(SPECIES_EN[1:387], 1)
+    )
+
 
 def try_intersect(x, y):
     try:
         return range(max(x[0], y[0]), min(x[-1], y[-1]) + 1)
     except IndexError:
         return range(32, 0)
+
 
 def calc_stat(stat_index, base_stat, iv, level, nature):
     iv_map = (-1, 0, 1, 3, 4, 2)
@@ -44,18 +49,20 @@ def calc_stat(stat_index, base_stat, iv, level, nature):
                 stat = np.uint16(stat * np.float32(0.9))
     return stat
 
+
 def calc_ivs(base_stats, stats, level, nature):
     min_ivs = np.ones(6, np.uint16) * 31
     max_ivs = np.zeros(6, np.uint16)
     for i in range(6):
         for iv in range(32):
-            stat = calc_stat(i, base_stats[i], np.uint8(iv), np.uint8(level), np.uint8(nature))
+            stat = calc_stat(
+                i, base_stats[i], np.uint8(iv), np.uint8(level), np.uint8(nature)
+            )
             if stat == stats[i]:
                 min_ivs[i] = min(iv, min_ivs[i])
                 max_ivs[i] = max(iv, max_ivs[i])
-    return tuple(
-        range(min_iv, max_iv + 1) for min_iv, max_iv in zip(min_ivs, max_ivs)
-    )
+    return tuple(range(min_iv, max_iv + 1) for min_iv, max_iv in zip(min_ivs, max_ivs))
+
 
 def calculate_ivs(species: int, nature: int, stat_entry: str):
     personal_info = PERSONAL_INFO_FR[species]
@@ -78,12 +85,11 @@ def calculate_ivs(species: int, nature: int, stat_entry: str):
             try_intersect(x, y)
             for x, y in zip(
                 iv_ranges,
-                calc_ivs(
-                    base_stats, stats, level, np.int8(nature)
-                ),
+                calc_ivs(base_stats, stats, level, np.int8(nature)),
             )
         ]
     return iv_ranges
+
 
 def check_frlg(
     method: int,
@@ -115,7 +121,7 @@ def check_frlg(
         min_ivs,
         max_ivs,
         nature_filter,
-        tuple(seed_data.items())[max(idx-leeway, 0):idx+leeway+1],
+        tuple(seed_data.items())[max(idx - leeway, 0) : idx + leeway + 1],
         advance_min,
         advance_max,
         system_ms,
@@ -168,7 +174,10 @@ def check_iter(
                 (iv1 >> 10) & 31,
                 iv1 & 31,
             )
-            if not all(min_iv <= iv <= max_iv for iv, min_iv, max_iv in zip(ivs, min_ivs, max_ivs)):
+            if not all(
+                min_iv <= iv <= max_iv
+                for iv, min_iv, max_iv in zip(ivs, min_ivs, max_ivs)
+            ):
                 continue
 
             rows += (
@@ -190,6 +199,7 @@ def check_iter(
 
     return rows
 
+
 def get_seed_list(
     base_seed: int,
     leeway: int,
@@ -205,14 +215,12 @@ def get_seed_list(
     if datum is None:
         return "<td>Invalid Target Seed</td>"
     idx = datum[1]
-    seed_list = tuple(seed_data.keys())[max(idx-leeway, 0):idx+leeway+1]
+    seed_list = tuple(seed_data.keys())[max(idx - leeway, 0) : idx + leeway + 1]
 
     return "".join(
-        "<tr>"
-        f"<td>{int(initial_seed):04X}</td>"
-        "</tr>"
-        for initial_seed in seed_list
+        "<tr>" f"<td>{int(initial_seed):04X}</td>" "</tr>" for initial_seed in seed_list
     )
+
 
 def fetch_default_seed(
     game: str,
@@ -228,6 +236,7 @@ def fetch_default_seed(
         return f"{int(default_seed):04X}"
     except IndexError:
         return "No seed found."
+
 
 def check_frlg_wild(
     method: int,
@@ -260,7 +269,7 @@ def check_frlg_wild(
         min_ivs,
         max_ivs,
         nature_filter,
-        tuple(seed_data.items())[max(idx-leeway, 0):idx+leeway+1],
+        tuple(seed_data.items())[max(idx - leeway, 0) : idx + leeway + 1],
         advance_min,
         advance_max,
         system_ms,
@@ -325,7 +334,10 @@ def check_iter_wild(
                 (iv1 >> 10) & 31,
                 iv1 & 31,
             )
-            if not all(min_iv <= iv <= max_iv for iv, min_iv, max_iv in zip(ivs, min_ivs, max_ivs)):
+            if not all(
+                min_iv <= iv <= max_iv
+                for iv, min_iv, max_iv in zip(ivs, min_ivs, max_ivs)
+            ):
                 continue
 
             rows += (
@@ -347,6 +359,7 @@ def check_iter_wild(
 
     return rows
 
+
 ENCOUNTER_SLOT_TABLES = {
     "Grass": (20, 40, 50, 60, 70, 80, 85, 90, 94, 98, 99, 100),
     "Surf": (60, 90, 95, 99, 100),
@@ -354,6 +367,7 @@ ENCOUNTER_SLOT_TABLES = {
     "Good Rod": (60, 80, 100),
     "Super Rod": (40, 80, 95, 99, 100),
 }
+
 
 def calc_encslot(
     wild: str,
