@@ -216,6 +216,8 @@ def run_ten_lines(
 ) -> str:
     """Run ten lines to find origin seeds"""
     # no longer actually 10 lines
+    if not params.startswith("&"):
+        params = f"&{params}"
 
     return "".join(
         (
@@ -233,7 +235,7 @@ def run_ten_lines(
             )
             + f"<td>{info}</td>"
             "<td>"
-            f"<button onclick=\"window.open('./g3-calibration?target_seed={seed:X}&{params}&{seed_params}&system_ms={system_ms}', '_blank')\""
+            f"<button onclick=\"window.open('./g3-calibration?target_seed={seed:X}{params}&{seed_params}&system_ms={system_ms}', '_blank')\""
             'class="button-1">'
             "Open in calibration"
             "</button>"
