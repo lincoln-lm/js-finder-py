@@ -234,7 +234,7 @@ def fetch_default_seed(
         seed_data = FRLG_DATA[game][sound][l][button][select]
         default_seed = tuple(seed_data.keys())[50]
         return f"{int(default_seed):04X}"
-    except IndexError:
+    except (IndexError, KeyError):
         return "No seed found."
 
 
