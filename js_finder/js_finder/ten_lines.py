@@ -216,7 +216,7 @@ def run_ten_lines(
 ) -> str:
     """Run ten lines to find origin seeds"""
     # no longer actually 10 lines
-    if not params.startswith("&"):
+    if params and not params.startswith("&"):
         params = f"&{params}"
 
     return "".join(
