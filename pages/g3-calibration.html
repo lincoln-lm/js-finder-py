@@ -98,14 +98,9 @@
           enc_br.hidden = !is_wild;
           results_table_body.innerHTML = "";
         })
-        const is_wild = [3, 4, 5].includes(method_select.selectedIndex);
-        states.className = is_wild ? "wild-table" : "static-table";
-        encounter_select.disabled = !is_wild;
-        encounter_select.hidden = !is_wild;
-        enc_label.hidden = !is_wild;
-        enc_br.hidden = !is_wild;
+        method_select.dispatchEvent(new Event('change'));
         nature_filter_select.addEventListener('change', (event) => {
-          const is_any = [0].includes(nature_filter_select.selectedIndex);
+          const is_any = nature_filter_select.selectedIndex == 0;
           species_select.hidden = is_any;
           species_label.hidden = is_any;
           stat_entry.hidden = is_any;
@@ -128,14 +123,7 @@
             max_spe.value = 31;
           }
         })
-        const is_any = [0].includes(nature_filter_select.selectedIndex);
-        species_select.hidden = is_any;
-        species_label.hidden = is_any;
-        stat_entry.hidden = is_any;
-        stat_label.hidden = is_any;
-        calculate_ivs_button.disabled = is_any;
-        calcIV_label.hidden = !is_any;
-        iv_filter_br.hidden = !is_any;
+        nature_filter_select.dispatchEvent(new Event('change'));
       }
 
       function submitData() {
@@ -145,38 +133,38 @@
         if (is_wild) {
           pyodide.runPythonAsync(
             `g3_calibration.check_frlg_wild(
-            ${method_select.value},
-            ${parseInt(tid_input.value) ^ parseInt(sid_input.value)},
-            ${shiny_filter_select.value},
-            (
-              ${min_hp.value},
-              ${min_atk.value},
-              ${min_def.value},
-              ${min_spa.value},
-              ${min_spd.value},
-              ${min_spe.value}
-            ),
-            (
-              ${max_hp.value},
-              ${max_atk.value},
-              ${max_def.value},
-              ${max_spa.value},
-              ${max_spd.value},
-              ${max_spe.value}
-            ),
-            ${nature_filter_select.value},
-            0x${target_seed_input.value},
-            ${leeway.value},
-            "${game_select.value}",
-            "${sound_select.value}",
-            "${l_select.value}",
-            "${button_select.value}",
-            "${held_select.value}",
-            ${min_advance.value},
-            ${max_advance.value},
-            ${system_select.value},
-            "${encounter_select.value}"
-          )`
+              ${method_select.value},
+              ${parseInt(tid_input.value) ^ parseInt(sid_input.value)},
+              ${shiny_filter_select.value},
+              (
+                ${min_hp.value},
+                ${min_atk.value},
+                ${min_def.value},
+                ${min_spa.value},
+                ${min_spd.value},
+                ${min_spe.value}
+              ),
+              (
+                ${max_hp.value},
+                ${max_atk.value},
+                ${max_def.value},
+                ${max_spa.value},
+                ${max_spd.value},
+                ${max_spe.value}
+              ),
+              ${nature_filter_select.value},
+              0x${target_seed_input.value},
+              ${leeway.value},
+              "${game_select.value}",
+              "${sound_select.value}",
+              "${l_select.value}",
+              "${button_select.value}",
+              "${held_select.value}",
+              ${min_advance.value},
+              ${max_advance.value},
+              ${system_select.value},
+              "${encounter_select.value}"
+            )`
           )
           .then((results) => {
             results_table_body.innerHTML = results;
@@ -185,37 +173,37 @@
         else {
           pyodide.runPythonAsync(
             `g3_calibration.check_frlg(
-            ${method_select.value},
-            ${parseInt(tid_input.value) ^ parseInt(sid_input.value)},
-            ${shiny_filter_select.value},
-            (
-              ${min_hp.value},
-              ${min_atk.value},
-              ${min_def.value},
-              ${min_spa.value},
-              ${min_spd.value},
-              ${min_spe.value}
-            ),
-            (
-              ${max_hp.value},
-              ${max_atk.value},
-              ${max_def.value},
-              ${max_spa.value},
-              ${max_spd.value},
-              ${max_spe.value}
-            ),
-            ${nature_filter_select.value},
-            0x${target_seed_input.value},
-            ${leeway.value},
-            "${game_select.value}",
-            "${sound_select.value}",
-            "${l_select.value}",
-            "${button_select.value}",
-            "${held_select.value}",
-            ${min_advance.value},
-            ${max_advance.value},
-            ${system_select.value},
-          )`
+              ${method_select.value},
+              ${parseInt(tid_input.value) ^ parseInt(sid_input.value)},
+              ${shiny_filter_select.value},
+              (
+                ${min_hp.value},
+                ${min_atk.value},
+                ${min_def.value},
+                ${min_spa.value},
+                ${min_spd.value},
+                ${min_spe.value}
+              ),
+              (
+                ${max_hp.value},
+                ${max_atk.value},
+                ${max_def.value},
+                ${max_spa.value},
+                ${max_spd.value},
+                ${max_spe.value}
+              ),
+              ${nature_filter_select.value},
+              0x${target_seed_input.value},
+              ${leeway.value},
+              "${game_select.value}",
+              "${sound_select.value}",
+              "${l_select.value}",
+              "${button_select.value}",
+              "${held_select.value}",
+              ${min_advance.value},
+              ${max_advance.value},
+              ${system_select.value},
+            )`
           )
           .then((results) => {
             results_table_body.innerHTML = results;
@@ -284,12 +272,8 @@
                 "${button_select.value}",
                 "${held_select.value}"
             )`
-          ).then((results) => {
-            if (results === "") {
-              target_seed_input.value = "No seed found.";
-            } else {
-              target_seed_input.value = results.toString(16).toUpperCase();
-            }
+          ).then((result) => {
+            target_seed_input.value = result;
           }
         )
       }
@@ -374,7 +358,7 @@
         name="system-select"
         id="system_select"
         disabled
-      ><!---Selections are passed via URL from Ten Lines as signed int using new param-->
+      >
         <option value=-260>GBA</option>
         <option value=200>GameBoy Player</option>
         <option value=800>DS</option>

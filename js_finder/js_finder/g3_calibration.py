@@ -227,7 +227,7 @@ def fetch_default_seed(
         default_seed = tuple(seed_data.keys())[50]
         return f"{int(default_seed):04X}"
     except IndexError:
-        return ""
+        return "No seed found."
 
 def check_frlg_wild(
     method: int,
