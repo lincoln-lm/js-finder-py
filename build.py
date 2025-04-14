@@ -258,15 +258,9 @@ def pull_frlg_seeds():
                     seed = int(row[col], 16)
                     jpn_fr_1_0 = frlg_seeds["fr_jpn_1_0"][sound][l][button]
                     for held in jpn_fr_1_0.keys():
-<<<<<<< HEAD
                         offset_seed = (seed + FR_JPN_1_0_OFFSETS[l][held]) & 0xFFFF
                         if offset_seed not in jpn_fr_1_0[held]:
                             jpn_fr_1_0[held][offset_seed] = frame
-=======
-                        jpn_fr_1_0[held][
-                            (seed + FR_JPN_1_0_OFFSETS[l][held]) & 0xFFFF
-                        ] = frame
->>>>>>> 980be2f6b61ff52f572c5b675fdde9d06d13ef13
 
             add_seed(1, "mono", "lr", "a")
             add_seed(2, "mono", "la", "a")
@@ -291,15 +285,9 @@ def pull_frlg_seeds():
                     seed = int(row[col], 16)
                     jpn_fr_1_1 = frlg_seeds["fr_jpn_1_1"][sound][l][button]
                     for held in jpn_fr_1_1.keys():
-<<<<<<< HEAD
                         offset_seed = (seed + FR_JPN_1_1_OFFSETS[l][held]) & 0xFFFF
                         if offset_seed not in jpn_fr_1_1[held]:
                             jpn_fr_1_1[held][offset_seed] = frame
-=======
-                        jpn_fr_1_1[held][
-                            (seed + FR_JPN_1_1_OFFSETS[l][held]) & 0xFFFF
-                        ] = frame
->>>>>>> 980be2f6b61ff52f572c5b675fdde9d06d13ef13
 
             add_seed(1, "mono", "lr", "a")
             add_seed(2, "mono", "la", "a")
