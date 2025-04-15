@@ -224,7 +224,7 @@ def pull_frlg_seeds():
 
             def add_seed(col, sound, l, button):
                 seed_str = row[col]
-                if seed_str and seed_str != "":
+                if seed_str:
                     seed = int(seed_str, 16)
                     eng_lg = frlg_seeds["lg"][sound][l][button]
                     for held in eng_lg.keys():
