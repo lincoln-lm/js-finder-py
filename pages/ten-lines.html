@@ -33,17 +33,20 @@
       let forwardedParams = "";
       async function main() {
         const params = new URLSearchParams(document.location.search);
-        document.getElementById("seed_input").value = params.get("seed") || "DEADBEEF"
-        document.getElementById("num_results_input").value = params.get("num_results") || "5"
-        document.getElementById("system_select").value = params.get("system") || "RSE"
+        document.getElementById("seed_input").value =
+          params.get("seed") || "DEADBEEF";
+        document.getElementById("num_results_input").value =
+          params.get("num_results") || "5";
+        document.getElementById("system_select").value =
+          params.get("system") || "RSE";
         if (params.get("tid") != null) {
-          forwardedParams += `tid=${params.get("tid")}`
+          forwardedParams += `tid=${params.get("tid")}`;
         }
         if (params.get("sid") != null) {
           if (forwardedParams != "") {
-            forwardedParams += "&"
+            forwardedParams += "&";
           }
-          forwardedParams += `sid=${params.get("sid")}`
+          forwardedParams += `sid=${params.get("sid")}`;
         }
         pyodide = await loadPyodide();
         await pyodide.loadPackage("micropip");
@@ -62,20 +65,17 @@
       window.onload = () => main().then((_) => enableElements());
 
       function enableElements() {
-        pyodide
-          .runPythonAsync(
-            "ten_lines.get_data_date()"
-          )
-          .then((date) => {
-            notice_footer.innerHTML = `Original "10 lines" was created by Shao, FRLG seeds farmed by blisy, po, and トノ</br>FRLG seed data as of ${date}`;
-          });
+        pyodide.runPythonAsync("ten_lines.get_data_date()").then((date) => {
+          notice_footer.innerHTML = `Original "10 lines" was created by Shao, FRLG seeds farmed by blisy, po, and トノ</br>FRLG seed data as of ${date}`;
+        });
         seed_input.disabled = false;
         game_select.disabled = false;
         num_results_input.disabled = false;
         system_select.disabled = false;
 
-        game_select.addEventListener('change', (event) => {
-          const is_rse = game_select.value == "painting" || game_select.value == "rtc";
+        game_select.addEventListener("change", (event) => {
+          const is_rse =
+            game_select.value == "painting" || game_select.value == "rtc";
           states.className = is_rse ? "rse-table" : "frlg-table";
           results_table_body.innerHTML = "";
           // Disable and hide system select dropdown, label, and br (i hate html formatting) when Painting or RTC is selected
@@ -84,8 +84,9 @@
           system_select.value = is_rse ? "RSE" : "GBA";
           system_label.hidden = is_rse;
           system_br.hidden = is_rse;
-        })
-        const is_rse = game_select.value == "painting" || game_select.value == "rtc";
+        });
+        const is_rse =
+          game_select.value == "painting" || game_select.value == "rtc";
         states.className = is_rse ? "rse-table" : "frlg-table";
         system_select.value = is_rse ? "RSE" : "GBA";
       }
@@ -100,8 +101,13 @@
             results_table_body.innerHTML = results;
           });
       }
-
     </script>
+    <h3>
+      New "10 Lines" rewrite @
+      <a href="https://lincoln-lm.github.io/ten-lines/"
+        >https://lincoln-lm.github.io/ten-lines/</a
+      >
+    </h3>
     <div name="input-info" class="info">
       <input
         style="margin: 5px"
@@ -124,7 +130,7 @@
       <label for="num-results"> - Number of results</label>
       <br />
       <select
-        style="margin: 5px; width:250px"
+        style="margin: 5px; width: 250px"
         name="game-select"
         id="game_select"
         disabled
@@ -142,20 +148,20 @@
       <label for="game-select"> - Game</label>
       <br />
       <select
-        style="margin: 5px; width:250px"
+        style="margin: 5px; width: 250px"
         name="system-select"
         id="system_select"
         disabled
         hidden
       >
-      <option value="GBA">GBA</option>
-      <option value="GBP">GameBoy Player</option>
-      <option value="NDS">DS</option>
-      <option value="3DS">3DS (open_agb_firm)</option>
-      <option value="RSE" hidden>RSE</option>
+        <option value="GBA">GBA</option>
+        <option value="GBP">GameBoy Player</option>
+        <option value="NDS">DS</option>
+        <option value="3DS">3DS (open_agb_firm)</option>
+        <option value="RSE" hidden>RSE</option>
       </select>
       <label for="system-select" id="system_label" hidden> - System</label>
-      <br id="system_br" hidden/>
+      <br id="system_br" hidden />
       <button style="margin: 5px" class="button-1" onclick="submitData()">
         Submit
       </button>
