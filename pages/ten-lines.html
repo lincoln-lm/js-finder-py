@@ -91,6 +91,11 @@
         system_select.value = is_rse ? "RSE" : "GBA";
       }
 
+      function continueToPage() {
+        document.getElementById("nag_header").hidden = true;
+        document.getElementById("main_body").hidden = false;
+      }
+
       function submitData() {
         console.log("Submitted Data");
         pyodide
@@ -102,87 +107,91 @@
           });
       }
     </script>
-    <h3>
-      New "10 Lines" rewrite @
-      <a href="https://lincoln-lm.github.io/ten-lines/"
+    <h1 id="nag_header">
+      Please use the new and improved "10 Lines" rewrite @
+      <a href="https://lincoln-lm.github.io/ten-lines/" style="font-size: 1em"
         >https://lincoln-lm.github.io/ten-lines/</a
       >
-    </h3>
-    <div name="input-info" class="info">
-      <input
-        style="margin: 5px"
-        type="text"
-        name="seed"
-        id="seed_input"
-        value="DEADBEEF"
-        disabled
-      />
-      <label for="seed"> - Target Seed (hex)</label>
-      <br />
-      <input
-        style="margin: 5px"
-        type="number"
-        name="num-results"
-        id="num_results_input"
-        value="5"
-        disabled
-      />
-      <label for="num-results"> - Number of results</label>
-      <br />
-      <select
-        style="margin: 5px; width: 250px"
-        name="game-select"
-        id="game_select"
-        disabled
-      >
-        <option value="painting">Painting Seed</option>
-        <option value="rtc">RTC Seeding</option>
-        <option value="fr">FireRed (ENG)</option>
-        <option value="fr_eu">FireRed (SPA/FRE/ITA/GER)</option>
-        <option value="fr_jpn_1_0">FireRed (JPN) (1.0)</option>
-        <option value="fr_jpn_1_1">FireRed (JPN) (1.1)</option>
-        <option value="lg">LeafGreen (ENG)</option>
-        <option value="lg_eu">LeafGreen (SPA/FRE/ITA/GER)</option>
-        <option value="lg_jpn">LeafGreen (JPN)</option>
-      </select>
-      <label for="game-select"> - Game</label>
-      <br />
-      <select
-        style="margin: 5px; width: 250px"
-        name="system-select"
-        id="system_select"
-        disabled
-        hidden
-      >
-        <option value="GBA">GBA</option>
-        <option value="GBP">GameBoy Player</option>
-        <option value="NDS">DS</option>
-        <option value="3DS">3DS (open_agb_firm)</option>
-        <option value="RSE" hidden>RSE</option>
-      </select>
-      <label for="system-select" id="system_label" hidden> - System</label>
-      <br id="system_br" hidden />
-      <button style="margin: 5px" class="button-1" onclick="submitData()">
-        Submit
-      </button>
-    </div>
-    <div name="results" id="results_div" class="info">
-      <table name="results-table" id="states" class="rse-table">
-        <thead>
-          <tr>
-            <th>Seed (dec)</th>
-            <th>Seed (hex)</th>
-            <th>Advances</th>
-            <th>Est. Total Frames</th>
-            <th>Est. Total Time</th>
-            <th>Seed Time</th>
-            <th>Settings</th>
-            <th>Calibration</th>
-          </tr>
-        </thead>
-        <tbody id="results_table_body"></tbody>
-      </table>
-    </div>
-  </body>
-  <footer id="notice_footer">Loading Page ...</footer>
+      <br/>
+      <button class="button-1" onclick="continueToPage()">Continue Anyway</button>
+    </h1>
+    <div id="main_body" hidden>
+      <div name="input-info" class="info">
+        <input
+          style="margin: 5px"
+          type="text"
+          name="seed"
+          id="seed_input"
+          value="DEADBEEF"
+          disabled
+        />
+        <label for="seed"> - Target Seed (hex)</label>
+        <br />
+        <input
+          style="margin: 5px"
+          type="number"
+          name="num-results"
+          id="num_results_input"
+          value="5"
+          disabled
+        />
+        <label for="num-results"> - Number of results</label>
+        <br />
+        <select
+          style="margin: 5px; width: 250px"
+          name="game-select"
+          id="game_select"
+          disabled
+        >
+          <option value="painting">Painting Seed</option>
+          <option value="rtc">RTC Seeding</option>
+          <option value="fr">FireRed (ENG)</option>
+          <option value="fr_eu">FireRed (SPA/FRE/ITA/GER)</option>
+          <option value="fr_jpn_1_0">FireRed (JPN) (1.0)</option>
+          <option value="fr_jpn_1_1">FireRed (JPN) (1.1)</option>
+          <option value="lg">LeafGreen (ENG)</option>
+          <option value="lg_eu">LeafGreen (SPA/FRE/ITA/GER)</option>
+          <option value="lg_jpn">LeafGreen (JPN)</option>
+        </select>
+        <label for="game-select"> - Game</label>
+        <br />
+        <select
+          style="margin: 5px; width: 250px"
+          name="system-select"
+          id="system_select"
+          disabled
+          hidden
+        >
+          <option value="GBA">GBA</option>
+          <option value="GBP">GameBoy Player</option>
+          <option value="NDS">DS</option>
+          <option value="3DS">3DS (open_agb_firm)</option>
+          <option value="RSE" hidden>RSE</option>
+        </select>
+        <label for="system-select" id="system_label" hidden> - System</label>
+        <br id="system_br" hidden />
+        <button style="margin: 5px" class="button-1" onclick="submitData()">
+          Submit
+        </button>
+      </div>
+      <div name="results" id="results_div" class="info">
+        <table name="results-table" id="states" class="rse-table">
+          <thead>
+            <tr>
+              <th>Seed (dec)</th>
+              <th>Seed (hex)</th>
+              <th>Advances</th>
+              <th>Est. Total Frames</th>
+              <th>Est. Total Time</th>
+              <th>Seed Time</th>
+              <th>Settings</th>
+              <th>Calibration</th>
+            </tr>
+          </thead>
+          <tbody id="results_table_body"></tbody>
+        </table>
+      </div>
+    </body>
+    <footer id="notice_footer">Loading Page ...</footer>
+  </div>
 </html>

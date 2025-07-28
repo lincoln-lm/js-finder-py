@@ -126,6 +126,11 @@
         nature_filter_select.dispatchEvent(new Event('change'));
       }
 
+      function continueToPage() {
+        document.getElementById("nag_header").hidden = true;
+        document.getElementById("main_body").hidden = false;
+      }
+
       function submitData() {
         if (submit_button.disabled) return;
         console.log("Submitted Data");
@@ -278,320 +283,324 @@
         )
       }
     </script>
-    <h3>
-      New "Gen 3 Calibration" rewrite @
-      <a href="https://lincoln-lm.github.io/ten-lines/?page=1"
+    <h1 id="nag_header">
+      Please use the new and improved "Gen 3 Calibration" rewrite @
+      <a href="https://lincoln-lm.github.io/ten-lines/?page=1" style="font-size: 1em"
         >https://lincoln-lm.github.io/ten-lines/</a
-      >
-    </h3>
-    <div name="input-info" class="info">
-      <select
-        style="margin: 5px; width:250px"
-        name="game-select"
-        id="game_select"
-        onChange="updateTargetSeed()"
-        disabled
-      >
-        <!-- <option value="painting">Painting Seed</option>
-        <option value="rtc">RTC Seeding</option> -->
-        <option value="fr">FireRed (ENG)</option>
-        <option value="fr_eu">FireRed (SPA/FRE/ITA/GER)</option>
-        <option value="fr_jpn_1_0">FireRed (JPN) (1.0)</option>
-        <option value="fr_jpn_1_1">FireRed (JPN) (1.1)</option>
-        <option value="lg">LeafGreen (ENG)</option>
-        <option value="lg_eu">LeafGreen (SPA/FRE/ITA/GER)</option>
-        <option value="lg_jpn">LeafGreen (JPN)</option>
-      </select>
-      <label for="game-select"> - Game</label>
-      <br />
-      <select
-        style="margin: 5px; width:250px"
-        name="sound-select"
-        id="sound_select"
-        onChange="updateTargetSeed()"
-        disabled
-      >
-        <option value="mono">Mono</option>
-        <option value="stereo">Stereo</option>
-      </select>
-      <label for="sound-select"> - Sound</label>
-      <br />
-      <select
-        style="margin: 5px; width:250px"
-        name="l-select"
-        id="l_select"
-        onChange="updateTargetSeed()"
-        disabled
-      >
-        <option value="la">L=A</option>
-        <option value="help">Help</option>
-        <option value="lr">LR</option>
-      </select>
-      <label for="l-select"> - L</label>
-      <br />
-      <select
-        style="margin: 5px; width:250px"
-        name="button-select"
-        id="button_select"
-        onChange="updateTargetSeed()"
-        disabled
-      >
-        <option value="a">A</option>
-        <option value="start">Start</option>
-        <option value="l">L (L=A)</option>
-      </select>
-      <label for="button-select"> - A Button</label>
-      <br />
-      <select
-        style="margin: 5px; width:250px"
-        name="held-select"
-        id="held_select"
-        onChange="updateTargetSeed()"
-        disabled
-      >
-        <option value="none">None</option>
-        <option value="startup_select">Startup Select</option>
-        <option value="startup_a">Startup A</option>
-        <option value="blackout_r">Blackout R</option>
-        <option value="blackout_a">Blackout A</option>
-        <option value="blackout_l">Blackout L</option>
-        <option value="blackout_al">Blackout A+L</option>
-      </select>
-      <label for="held-select"> - Held Button</label>
-      <br />
-      <select
-        style="margin: 5px; width:250px"
-        name="system-select"
-        id="system_select"
-        disabled
-      >
-        <option value="GBA">GBA</option>
-        <option value="GBP">GameBoy Player</option>
-        <option value="NDS">DS</option>
-        <option value="3DS">3DS (open_agb_firm)</option>
-      </select>
-      <label for="system-select"> - System</label>
-      <br />
-      <input
-        style="margin: 5px"
-        type="text"
-        name="target-seed"
-        id="target_seed_input"
-        value="DEAD"
-        disabled
-      />
-      <label for="target-seed"> - Target Seed (hex)</label>
-      <br />
-      <input style="margin: 5px" type="number" name="leeway" id="leeway" value=20 disabled />
-      <label for="leeway"> - Seed +/-</label>  
-      <button
-        style="margin: 1px"
-        class="button-2"
-        onclick="getSeedList()"
-        id="seed_list_button"
-        disabled>
-        Show Seeds
-      </button>
-      <br />    
-      <!--Collapsible div containing table that will be hidden and revealed via the script that calls "getSeedList()"-->
-      <div name="seed_list" id="seed_list_div" class="info" style="width: 7.5%; display: none">
-        <table name="seed-list-table" id="seed_table">
-          <thead ></thead>
+      >!
+      <br/>
+      <button class="button-1" onclick="continueToPage()">Continue Anyway</button>
+    </h1>
+    <div id="main_body" hidden>
+      <div name="input-info" class="info">
+        <select
+          style="margin: 5px; width:250px"
+          name="game-select"
+          id="game_select"
+          onChange="updateTargetSeed()"
+          disabled
+        >
+          <!-- <option value="painting">Painting Seed</option>
+          <option value="rtc">RTC Seeding</option> -->
+          <option value="fr">FireRed (ENG)</option>
+          <option value="fr_eu">FireRed (SPA/FRE/ITA/GER)</option>
+          <option value="fr_jpn_1_0">FireRed (JPN) (1.0)</option>
+          <option value="fr_jpn_1_1">FireRed (JPN) (1.1)</option>
+          <option value="lg">LeafGreen (ENG)</option>
+          <option value="lg_eu">LeafGreen (SPA/FRE/ITA/GER)</option>
+          <option value="lg_jpn">LeafGreen (JPN)</option>
+        </select>
+        <label for="game-select"> - Game</label>
+        <br />
+        <select
+          style="margin: 5px; width:250px"
+          name="sound-select"
+          id="sound_select"
+          onChange="updateTargetSeed()"
+          disabled
+        >
+          <option value="mono">Mono</option>
+          <option value="stereo">Stereo</option>
+        </select>
+        <label for="sound-select"> - Sound</label>
+        <br />
+        <select
+          style="margin: 5px; width:250px"
+          name="l-select"
+          id="l_select"
+          onChange="updateTargetSeed()"
+          disabled
+        >
+          <option value="la">L=A</option>
+          <option value="help">Help</option>
+          <option value="lr">LR</option>
+        </select>
+        <label for="l-select"> - L</label>
+        <br />
+        <select
+          style="margin: 5px; width:250px"
+          name="button-select"
+          id="button_select"
+          onChange="updateTargetSeed()"
+          disabled
+        >
+          <option value="a">A</option>
+          <option value="start">Start</option>
+          <option value="l">L (L=A)</option>
+        </select>
+        <label for="button-select"> - A Button</label>
+        <br />
+        <select
+          style="margin: 5px; width:250px"
+          name="held-select"
+          id="held_select"
+          onChange="updateTargetSeed()"
+          disabled
+        >
+          <option value="none">None</option>
+          <option value="startup_select">Startup Select</option>
+          <option value="startup_a">Startup A</option>
+          <option value="blackout_r">Blackout R</option>
+          <option value="blackout_a">Blackout A</option>
+          <option value="blackout_l">Blackout L</option>
+          <option value="blackout_al">Blackout A+L</option>
+        </select>
+        <label for="held-select"> - Held Button</label>
+        <br />
+        <select
+          style="margin: 5px; width:250px"
+          name="system-select"
+          id="system_select"
+          disabled
+        >
+          <option value="GBA">GBA</option>
+          <option value="GBP">GameBoy Player</option>
+          <option value="NDS">DS</option>
+          <option value="3DS">3DS (open_agb_firm)</option>
+        </select>
+        <label for="system-select"> - System</label>
+        <br />
+        <input
+          style="margin: 5px"
+          type="text"
+          name="target-seed"
+          id="target_seed_input"
+          value="DEAD"
+          disabled
+        />
+        <label for="target-seed"> - Target Seed (hex)</label>
+        <br />
+        <input style="margin: 5px" type="number" name="leeway" id="leeway" value=20 disabled />
+        <label for="leeway"> - Seed +/-</label>  
+        <button
+          style="margin: 1px"
+          class="button-2"
+          onclick="getSeedList()"
+          id="seed_list_button"
+          disabled>
+          Show Seeds
+        </button>
+        <br />    
+        <!--Collapsible div containing table that will be hidden and revealed via the script that calls "getSeedList()"-->
+        <div name="seed_list" id="seed_list_div" class="info" style="width: 7.5%; display: none">
+          <table name="seed-list-table" id="seed_table">
+            <thead ></thead>
+              <tr>
+                <th style="border-bottom: 1px solid white;">Seeds</th>
+              </tr>
+            </thead>
+            <tbody id="seed_table_body" style="font-size: 12px"></tbody>
+          </table>
+        </div>
+        <input style="margin: 5px" type="number" name="min-advance" id="min_advance" value=0 disabled />
+        <label for="min-advance" style="margin-left: 10px;"> - </label>
+        <input style="margin: 5px" type="number" name="max-advance" id="max_advance" value=100 disabled />
+        <label for="max-advance"> - Advance Range</label>
+        <br />
+
+
+        <select
+          style="margin: 5px; width: 150px"
+          name="method-select"
+          id="method_select"
+          disabled
+        >
+          <option value="1">Static 1</option>
+          <option value="2">Static 2</option>
+          <option value="4">Static 4</option>
+          <option value="1">Wild 1</option>
+          <option value="2">Wild 2</option>
+          <option value="4">Wild 4</option>
+        </select>
+        <label for="method-select"> - Encounter Method</label>
+        <br />
+        <select
+          style="margin: 5px; width: 150px"
+          name="encounter-select"
+          id="encounter_select"
+          disabled
+          hidden
+        >
+          <option value="Grass">Grass</option>
+          <option value="Surf">Surf</option>
+          <option value="Super Rod">Super Rod</option>
+          <option value="Good Rod">Good Rod</option>
+          <option value="Old Rod">Old Rod</option>
+        </select>
+        <label for="encounter-select" id="enc_label" hidden> - Encounter Type</label>
+        <br id="enc_br" hidden/>
+        <input
+          type="number"
+          min="0"
+          max="65535"
+          value="12345"
+          name="tid-input"
+          id="tid_input"
+          disabled
+        />
+        <label for="tid-input"> - Trainer ID</label>
+        <br />
+        <input
+          type="number"
+          min="0"
+          max="65535"
+          value="54321"
+          name="sid-input"
+          id="sid_input"
+          disabled
+        />
+        <label for="sid-input"> - Secret ID</label>
+        <br />
+        <select
+          style="margin: 5px; width: 150px"
+          name="shiny-filter-select"
+          id="shiny_filter_select"
+        >
+          <option value="65536">Any</option>
+          <option value="1">Square</option>
+          <option value="8">Star/Square</option>
+        </select>
+        <label for="shiny-filter-select"> - Shiny Filter</label>
+        <br />
+        <select
+          style="margin: 5px; width: 150px"
+          name="nature-filter-select"
+          id="nature_filter_select"
+        >
+          <option value="None">Any</option>
+          <option value="0">Hardy</option>
+          <option value="1">Lonely</option>
+          <option value="2">Brave</option>
+          <option value="3">Adamant</option>
+          <option value="4">Naughty</option>
+          <option value="5">Bold</option>
+          <option value="6">Docile</option>
+          <option value="7">Relaxed</option>
+          <option value="8">Impish</option>
+          <option value="9">Lax</option>
+          <option value="10">Timid</option>
+          <option value="11">Hasty</option>
+          <option value="12">Serious</option>
+          <option value="13">Jolly</option>
+          <option value="14">Naive</option>
+          <option value="15">Modest</option>
+          <option value="16">Mild</option>
+          <option value="17">Quiet</option>
+          <option value="18">Bashful</option>
+          <option value="19">Rash</option>
+          <option value="20">Calm</option>
+          <option value="21">Gentle</option>
+          <option value="22">Sassy</option>
+          <option value="23">Careful</option>
+          <option value="24">Quirky</option>
+        </select>
+        <label for="nature-filter-select"> - Nature Filter</label>
+        <br />
+        <select
+          style="margin: 5px; width: 150px"
+          name="species-select"
+          id="species_select"
+          hidden
+        ></select>
+        <label for="species-select" id="species_label" hidden> - IV Calculator Species</label>
+        <br id="iv_filter_br" hidden/>
+        <label for="calculate_ivs_button" id="calcIV_label" hidden>IV Calculation disabled. Searching all Natures.</label>
+        <br />
+        <textarea name="stat-entry" id="stat_entry" hidden></textarea>
+        <label for="stat-entry" id="stat_label" hidden> - IV Calculator Stat Entry</label>
+        <br />
+        <button
+          style="margin: 5px"
+          class="button-1"
+          onclick="calculateIVs()"
+          id="calculate_ivs_button"
+          disabled
+          hidden
+        >
+          Calculate IVs
+        </button>
+        <div class="flex-row">
+          <div class="flex-col">
+            <label>HP - </label>
+            <label>ATK - </label>
+            <label>DEF - </label>
+            <label>SPA - </label>
+            <label>SPD - </label>
+            <label>SPE - </label>
+          </div>
+          <div class="flex-col">
+            <input type="number" min="0" max="31" value="0" id="min_hp" />
+            <input type="number" min="0" max="31" value="0" id="min_atk" />
+            <input type="number" min="0" max="31" value="0" id="min_def" />
+            <input type="number" min="0" max="31" value="0" id="min_spa" />
+            <input type="number" min="0" max="31" value="0" id="min_spd" />
+            <input type="number" min="0" max="31" value="0" id="min_spe" />
+          </div>
+          <div class="flex-col" style="padding-left: 5px">
+            <label>~</label>
+            <label>~</label>
+            <label>~</label>
+            <label>~</label>
+            <label>~</label>
+            <label>~</label>
+          </div>
+          <div style="display: flex; flex-direction: column">
+            <input type="number" min="0" max="31" value="31" id="max_hp" />
+            <input type="number" min="0" max="31" value="31" id="max_atk" />
+            <input type="number" min="0" max="31" value="31" id="max_def" />
+            <input type="number" min="0" max="31" value="31" id="max_spa" />
+            <input type="number" min="0" max="31" value="31" id="max_spd" />
+            <input type="number" min="0" max="31" value="31" id="max_spe" />
+          </div>
+        </div>
+        <button
+          style="margin: 5px"
+          class="button-1"
+          onclick="submitData()"
+          id="submit_button"
+          disabled
+        >
+          Submit
+        </button>
+      </div>
+      <div name="results" id="results_div" class="info">
+        <table name="results-table" id="states" class="wild-table">
+          <thead>
             <tr>
-              <th style="border-bottom: 1px solid white;">Seeds</th>
+              <th>Seed</th>
+              <th>Advance</th>
+              <th>Slot</th>
+              <th>PID</th>
+              <th>Shiny</th>
+              <th>Nature</th>
+              <th>Ability</th>
+              <th>IVs</th>
             </tr>
           </thead>
-          <tbody id="seed_table_body" style="font-size: 12px"></tbody>
+          <tbody id="results_table_body"></tbody>
         </table>
       </div>
-      <input style="margin: 5px" type="number" name="min-advance" id="min_advance" value=0 disabled />
-      <label for="min-advance" style="margin-left: 10px;"> - </label>
-      <input style="margin: 5px" type="number" name="max-advance" id="max_advance" value=100 disabled />
-      <label for="max-advance"> - Advance Range</label>
-      <br />
-
-
-      <select
-        style="margin: 5px; width: 150px"
-        name="method-select"
-        id="method_select"
-        disabled
-      >
-        <option value="1">Static 1</option>
-        <option value="2">Static 2</option>
-        <option value="4">Static 4</option>
-        <option value="1">Wild 1</option>
-        <option value="2">Wild 2</option>
-        <option value="4">Wild 4</option>
-      </select>
-      <label for="method-select"> - Encounter Method</label>
-      <br />
-      <select
-        style="margin: 5px; width: 150px"
-        name="encounter-select"
-        id="encounter_select"
-        disabled
-        hidden
-      >
-        <option value="Grass">Grass</option>
-        <option value="Surf">Surf</option>
-        <option value="Super Rod">Super Rod</option>
-        <option value="Good Rod">Good Rod</option>
-        <option value="Old Rod">Old Rod</option>
-      </select>
-      <label for="encounter-select" id="enc_label" hidden> - Encounter Type</label>
-      <br id="enc_br" hidden/>
-      <input
-        type="number"
-        min="0"
-        max="65535"
-        value="12345"
-        name="tid-input"
-        id="tid_input"
-        disabled
-      />
-      <label for="tid-input"> - Trainer ID</label>
-      <br />
-      <input
-        type="number"
-        min="0"
-        max="65535"
-        value="54321"
-        name="sid-input"
-        id="sid_input"
-        disabled
-      />
-      <label for="sid-input"> - Secret ID</label>
-      <br />
-      <select
-        style="margin: 5px; width: 150px"
-        name="shiny-filter-select"
-        id="shiny_filter_select"
-      >
-        <option value="65536">Any</option>
-        <option value="1">Square</option>
-        <option value="8">Star/Square</option>
-      </select>
-      <label for="shiny-filter-select"> - Shiny Filter</label>
-      <br />
-      <select
-        style="margin: 5px; width: 150px"
-        name="nature-filter-select"
-        id="nature_filter_select"
-      >
-        <option value="None">Any</option>
-        <option value="0">Hardy</option>
-        <option value="1">Lonely</option>
-        <option value="2">Brave</option>
-        <option value="3">Adamant</option>
-        <option value="4">Naughty</option>
-        <option value="5">Bold</option>
-        <option value="6">Docile</option>
-        <option value="7">Relaxed</option>
-        <option value="8">Impish</option>
-        <option value="9">Lax</option>
-        <option value="10">Timid</option>
-        <option value="11">Hasty</option>
-        <option value="12">Serious</option>
-        <option value="13">Jolly</option>
-        <option value="14">Naive</option>
-        <option value="15">Modest</option>
-        <option value="16">Mild</option>
-        <option value="17">Quiet</option>
-        <option value="18">Bashful</option>
-        <option value="19">Rash</option>
-        <option value="20">Calm</option>
-        <option value="21">Gentle</option>
-        <option value="22">Sassy</option>
-        <option value="23">Careful</option>
-        <option value="24">Quirky</option>
-      </select>
-      <label for="nature-filter-select"> - Nature Filter</label>
-      <br />
-      <select
-        style="margin: 5px; width: 150px"
-        name="species-select"
-        id="species_select"
-        hidden
-      ></select>
-      <label for="species-select" id="species_label" hidden> - IV Calculator Species</label>
-      <br id="iv_filter_br" hidden/>
-      <label for="calculate_ivs_button" id="calcIV_label" hidden>IV Calculation disabled. Searching all Natures.</label>
-      <br />
-      <textarea name="stat-entry" id="stat_entry" hidden></textarea>
-      <label for="stat-entry" id="stat_label" hidden> - IV Calculator Stat Entry</label>
-      <br />
-      <button
-        style="margin: 5px"
-        class="button-1"
-        onclick="calculateIVs()"
-        id="calculate_ivs_button"
-        disabled
-        hidden
-      >
-        Calculate IVs
-      </button>
-      <div class="flex-row">
-        <div class="flex-col">
-          <label>HP - </label>
-          <label>ATK - </label>
-          <label>DEF - </label>
-          <label>SPA - </label>
-          <label>SPD - </label>
-          <label>SPE - </label>
-        </div>
-        <div class="flex-col">
-          <input type="number" min="0" max="31" value="0" id="min_hp" />
-          <input type="number" min="0" max="31" value="0" id="min_atk" />
-          <input type="number" min="0" max="31" value="0" id="min_def" />
-          <input type="number" min="0" max="31" value="0" id="min_spa" />
-          <input type="number" min="0" max="31" value="0" id="min_spd" />
-          <input type="number" min="0" max="31" value="0" id="min_spe" />
-        </div>
-        <div class="flex-col" style="padding-left: 5px">
-          <label>~</label>
-          <label>~</label>
-          <label>~</label>
-          <label>~</label>
-          <label>~</label>
-          <label>~</label>
-        </div>
-        <div style="display: flex; flex-direction: column">
-          <input type="number" min="0" max="31" value="31" id="max_hp" />
-          <input type="number" min="0" max="31" value="31" id="max_atk" />
-          <input type="number" min="0" max="31" value="31" id="max_def" />
-          <input type="number" min="0" max="31" value="31" id="max_spa" />
-          <input type="number" min="0" max="31" value="31" id="max_spd" />
-          <input type="number" min="0" max="31" value="31" id="max_spe" />
-        </div>
-      </div>
-      <button
-        style="margin: 5px"
-        class="button-1"
-        onclick="submitData()"
-        id="submit_button"
-        disabled
-      >
-        Submit
-      </button>
-    </div>
-    <div name="results" id="results_div" class="info">
-      <table name="results-table" id="states" class="wild-table">
-        <thead>
-          <tr>
-            <th>Seed</th>
-            <th>Advance</th>
-            <th>Slot</th>
-            <th>PID</th>
-            <th>Shiny</th>
-            <th>Nature</th>
-            <th>Ability</th>
-            <th>IVs</th>
-          </tr>
-        </thead>
-        <tbody id="results_table_body"></tbody>
-      </table>
-    </div>
-  </body>
-  <footer id="notice_footer">Loading Page ...</footer>
+    </body>
+    <footer id="notice_footer">Loading Page ...</footer>
+  </div>
 </html>
