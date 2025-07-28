@@ -61,6 +61,11 @@
         notice_footer.innerHTML = "Heavily based on PokeFinder";
       }
 
+      function continueToPage() {
+        document.getElementById("nag_header").hidden = true;
+        document.getElementById("main_body").hidden = false;
+      }
+
       function submitData() {
         console.log("Submitted Data");
         pyodide
@@ -93,118 +98,124 @@
           });
       }
     </script>
-    <h3>
-      New "Gen 3 Searcher" rewrite @
-      <a href="https://lincoln-lm.github.io/ten-lines/?page=2"
+    <h1 id="nag_header">
+      Please use the new and improved "Gen 3 Searcher" rewrite @
+      <a
+        href="https://lincoln-lm.github.io/ten-lines/?page=2"
+        style="font-size: 1em"
         >https://lincoln-lm.github.io/ten-lines/</a
-      >
-    </h3>
-    <div name="input-info" class="info">
-      <select
-        style="margin: 5px; width: 150px"
-        name="method-select"
-        id="method_select"
-        disabled
-      >
-        <option value="1">Static 1</option>
-        <option value="2">Static 2</option>
-        <option value="4">Static 4</option>
-      </select>
-      <label for="method-select"> - Encounter Method</label>
-      <br />
-      <input
-        type="number"
-        min="0"
-        max="65535"
-        value="12345"
-        name="tid-input"
-        id="tid_input"
-        disabled
-      />
-      <label for="tid-input"> - Trainer ID</label>
-      <br />
-      <input
-        type="number"
-        min="0"
-        max="65535"
-        value="54321"
-        name="sid-input"
-        id="sid_input"
-        disabled
-      />
-      <label for="sid-input"> - Secret ID</label>
-      <br />
-      <select
-        style="margin: 5px; width: 150px"
-        name="shiny-filter-select"
-        id="shiny_filter_select"
-      >
-        <option value="65536">Any</option>
-        <option value="1">Square</option>
-        <option value="8">Star/Square</option>
-      </select>
-      <label for="shiny-filter-select"> - Shiny Filter</label>
-      <br />
-      <div class="flex-row">
-        <div class="flex-col">
-          <label>HP - </label>
-          <label>ATK - </label>
-          <label>DEF - </label>
-          <label>SPA - </label>
-          <label>SPD - </label>
-          <label>SPE - </label>
+      >!
+      <br/>
+      <button class="button-1" onclick="continueToPage()">Continue Anyway</button>
+    </h1>
+    <div id="main_body" hidden>
+      <div name="input-info" class="info">
+        <select
+          style="margin: 5px; width: 150px"
+          name="method-select"
+          id="method_select"
+          disabled
+        >
+          <option value="1">Static 1</option>
+          <option value="2">Static 2</option>
+          <option value="4">Static 4</option>
+        </select>
+        <label for="method-select"> - Encounter Method</label>
+        <br />
+        <input
+          type="number"
+          min="0"
+          max="65535"
+          value="12345"
+          name="tid-input"
+          id="tid_input"
+          disabled
+        />
+        <label for="tid-input"> - Trainer ID</label>
+        <br />
+        <input
+          type="number"
+          min="0"
+          max="65535"
+          value="54321"
+          name="sid-input"
+          id="sid_input"
+          disabled
+        />
+        <label for="sid-input"> - Secret ID</label>
+        <br />
+        <select
+          style="margin: 5px; width: 150px"
+          name="shiny-filter-select"
+          id="shiny_filter_select"
+        >
+          <option value="65536">Any</option>
+          <option value="1">Square</option>
+          <option value="8">Star/Square</option>
+        </select>
+        <label for="shiny-filter-select"> - Shiny Filter</label>
+        <br />
+        <div class="flex-row">
+          <div class="flex-col">
+            <label>HP - </label>
+            <label>ATK - </label>
+            <label>DEF - </label>
+            <label>SPA - </label>
+            <label>SPD - </label>
+            <label>SPE - </label>
+          </div>
+          <div class="flex-col">
+            <input type="number" min="0" max="31" value="0" id="min_hp" />
+            <input type="number" min="0" max="31" value="0" id="min_atk" />
+            <input type="number" min="0" max="31" value="0" id="min_def" />
+            <input type="number" min="0" max="31" value="0" id="min_spa" />
+            <input type="number" min="0" max="31" value="0" id="min_spd" />
+            <input type="number" min="0" max="31" value="0" id="min_spe" />
+          </div>
+          <div class="flex-col" style="padding-left: 5px">
+            <label>~</label>
+            <label>~</label>
+            <label>~</label>
+            <label>~</label>
+            <label>~</label>
+            <label>~</label>
+          </div>
+          <div style="display: flex; flex-direction: column">
+            <input type="number" min="0" max="31" value="31" id="max_hp" />
+            <input type="number" min="0" max="31" value="31" id="max_atk" />
+            <input type="number" min="0" max="31" value="31" id="max_def" />
+            <input type="number" min="0" max="31" value="31" id="max_spa" />
+            <input type="number" min="0" max="31" value="31" id="max_spd" />
+            <input type="number" min="0" max="31" value="31" id="max_spe" />
+          </div>
         </div>
-        <div class="flex-col">
-          <input type="number" min="0" max="31" value="0" id="min_hp" />
-          <input type="number" min="0" max="31" value="0" id="min_atk" />
-          <input type="number" min="0" max="31" value="0" id="min_def" />
-          <input type="number" min="0" max="31" value="0" id="min_spa" />
-          <input type="number" min="0" max="31" value="0" id="min_spd" />
-          <input type="number" min="0" max="31" value="0" id="min_spe" />
-        </div>
-        <div class="flex-col" style="padding-left: 5px">
-          <label>~</label>
-          <label>~</label>
-          <label>~</label>
-          <label>~</label>
-          <label>~</label>
-          <label>~</label>
-        </div>
-        <div style="display: flex; flex-direction: column">
-          <input type="number" min="0" max="31" value="31" id="max_hp" />
-          <input type="number" min="0" max="31" value="31" id="max_atk" />
-          <input type="number" min="0" max="31" value="31" id="max_def" />
-          <input type="number" min="0" max="31" value="31" id="max_spa" />
-          <input type="number" min="0" max="31" value="31" id="max_spd" />
-          <input type="number" min="0" max="31" value="31" id="max_spe" />
-        </div>
+        <button
+          style="margin: 5px"
+          class="button-1"
+          onclick="submitData()"
+          id="submit_button"
+          disabled
+        >
+          Submit
+        </button>
       </div>
-      <button
-        style="margin: 5px"
-        class="button-1"
-        onclick="submitData()"
-        id="submit_button"
-        disabled
-      >
-        Submit
-      </button>
-    </div>
-    <div name="results" id="results_div" class="info">
-      <table name="results-table" id="states">
-        <thead>
-          <tr>
-            <th>Seed</th>
-            <th>PID</th>
-            <th>Shiny</th>
-            <th>Nature</th>
-            <th>Ability</th>
-            <th>IVs</th>
-            <th>10 Lines</th>
-          </tr>
-        </thead>
-        <tbody id="results_table_body"></tbody>
-      </table>
-    </div>
-  </body>
-  <footer id="notice_footer">Loading Page ...</footer>
+      <div name="results" id="results_div" class="info">
+        <table name="results-table" id="states">
+          <thead>
+            <tr>
+              <th>Seed</th>
+              <th>PID</th>
+              <th>Shiny</th>
+              <th>Nature</th>
+              <th>Ability</th>
+              <th>IVs</th>
+              <th>10 Lines</th>
+            </tr>
+          </thead>
+          <tbody id="results_table_body"></tbody>
+        </table>
+      </div>
+    </body>
+    <footer id="notice_footer">Loading Page ...</footer>
+  </div>
 </html>
