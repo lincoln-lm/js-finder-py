@@ -12,6 +12,8 @@ def modpow32(a_val, b_val):
 # TODO: precomputed jump table
 def lcrng_jump(seed, advances, mult, add):
     """Efficiently jump ahead in the LCRNG sequence"""
+    if advances == 0:
+        return seed
     advances_left = advances - 1
     mult_val = mult
     add_val = 1
